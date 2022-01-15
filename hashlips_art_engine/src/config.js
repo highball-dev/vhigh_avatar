@@ -5,9 +5,10 @@ const { NETWORK } = require(`${basePath}/constants/network.js`);
 const network = NETWORK.eth;
 
 // General metadata for Ethereum
-const namePrefix = "Your Collection";
-const description = "Remember to replace this description";
-const baseUri = "ipfs://NewUriToReplace";
+const namePrefix = "Vhigh! Avatar Gen 0.0";
+const description = "Remember to replace this description"; // FIXME: update
+const baseUri =
+  "ipfs://bafybeiaqdv5mduzgrnsrqghcxkrbmshgl4oaiizikczidij5aqwpizhxg4"; // FIXME: update
 
 const solanaMetadata = {
   symbol: "YC",
@@ -22,28 +23,35 @@ const solanaMetadata = {
 };
 
 // If you have selected Solana then the collection starts from 0 automatically
+// FIXME: update
 const layerConfigurations = [
   {
-    growEditionSizeTo: 5,
+    growEditionSizeTo: 4,
     layersOrder: [
-      { name: "Background" },
-      { name: "Eyeball" },
-      { name: "Eye color" },
-      { name: "Iris" },
-      { name: "Shine" },
-      { name: "Bottom lid" },
-      { name: "Top lid" },
+      {
+        name: "background",
+        options: {
+          bypassDNA: false,
+        },
+      },
+      { name: "backhair" },
+      { name: "face" },
+      { name: "bangs" },
+      { name: "mouth" },
+      { name: "eye" },
+      { name: "eyebrow" },
     ],
   },
 ];
 
 const shuffleLayerConfigurations = false;
 
-const debugLogs = false;
+const debugLogs = true;
 
+// FIXME: update
 const format = {
-  width: 512,
-  height: 512,
+  width: 3500,
+  height: 3500,
   smoothing: false,
 };
 

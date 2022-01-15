@@ -355,6 +355,8 @@ const startCreating = async () => {
       let newDna = createDna(layers);
       if (isDnaUnique(dnaList, newDna)) {
         let results = constructLayerToDna(newDna, layers);
+        // TODO:
+        // const isValidPair = checkValidPair(results);
         let loadedElements = [];
 
         results.forEach((layer) => {
