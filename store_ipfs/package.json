@@ -1,0 +1,22 @@
+{
+  "main": "index.js",
+  "engines": {
+    "node": "14.18.1"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "store-images": "run-s tsc store-images:run",
+    "store-images:rum": "node ./build/storeImages.js",
+    "store-json": "run-s tsc store-json:run",
+    "store-json:run": "node ./build/storeJson.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "10.0.0",
+    "nft.storage": "3.1.3"
+  },
+  "devDependencies": {
+    "typescript": "4.3.5",
+    "yarn-run-all": "3.1.1"
+  }
+}
