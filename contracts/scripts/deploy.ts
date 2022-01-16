@@ -3,7 +3,11 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-import { ethers } from "hardhat";
+import { ethers, network } from "hardhat";
+import { CUSTOME_BASE_URI, PUBLIC_KEY } from "../const";
+import fs from "fs";
+import path from "path";
+import { Address } from "../types";
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -13,13 +17,29 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
-  // We get the contract to deploy
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const saveAddress = (name: string, address: Address) =>
+    fs.writeFileSync(
+      path.resolve(__dirname, "..", "address", network.name, `${name}.pub`),
+      address
+    );
 
-  await greeter.deployed();
+  /** VhighAvatarGen0 */
+  console.log("VhighAvatarGen0");
+  // deploy
+  console.log("deploy...");
+  const vhighAvatarGen0Factory = await ethers.getContractFactory(
+    "VhighAvatarGen0"
+  );
+  const vhighAvatarGen0 = await vhighAvatarGen0Factory.deploy(CUSTOME_BASE_URI);
+  await vhighAvatarGen0.deployed();
+  console.log(`VhighAvatarGen0 deployed to: ${vhighAvatarGen0.address}`);
+  saveAddress("VhighAvatarGen0", vhighAvatarGen0.address);
 
-  console.log("Greeter deployed to:", greeter.address);
+  // ownerBatchMint
+  console.log("ownerBatchMint");
+  const txOwnerBatchMint = await vhighAvatarGen0.ownerBatchMint(PUBLIC_KEY);
+  const receiptOwnerBatchMint = await txOwnerBatchMint.wait();
+  console.log(JSON.stringify(receiptOwnerBatchMint, null, 4));
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -327,6 +327,24 @@ function shuffle(array) {
   return array;
 }
 
+// FIXME: move to config
+const isValidPair = (newDna, layers) => {
+  const results = constructLayerToDna(newDna, layers);
+
+  const backhair = results.find((layer) => layer.name === "backhair");
+  const backhairColor = backhair.selectedElement.name.split(" ").slice(-1)[0];
+
+  const bangs = results.find((layer) => layer.name === "bangs");
+  const bangsColor = bangs.selectedElement.name.split(" ").slice(-1)[0];
+
+  const eyebrow = results.find((layer) => layer.name === "eyebrow");
+  const eyebrowColor = eyebrow.selectedElement.name.split(" ").slice(-1)[0];
+
+  return [backhairColor, bangsColor, eyebrowColor].every(
+    (color) => color === backhairColor
+  );
+};
+
 const startCreating = async () => {
   let layerConfigIndex = 0;
   let editionCount = 1;
@@ -353,10 +371,10 @@ const startCreating = async () => {
       editionCount <= layerConfigurations[layerConfigIndex].growEditionSizeTo
     ) {
       let newDna = createDna(layers);
-      if (isDnaUnique(dnaList, newDna)) {
+      if (!isValidPair(newDna, layers)) {
+        console.log("Invalid pair!");
+      } else if (isDnaUnique(dnaList, newDna)) {
         let results = constructLayerToDna(newDna, layers);
-        // TODO:
-        // const isValidPair = checkValidPair(results);
         let loadedElements = [];
 
         results.forEach((layer) => {

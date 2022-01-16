@@ -1,24 +1,16 @@
-import { Contract } from "ethereal-react";
+import { NEXT_PUBLIC_IPFS_CID } from "../const";
 
 type Props = {
-  contract: Contract;
   tokenId: number;
 };
-const Avatar = ({ contract, tokenId }: Props) => {
+const Avatar = ({ tokenId }: Props) => {
   const name = `#${tokenId}`;
   return (
     <>
       <h3>{name}</h3>
-      <img src={`images/${tokenId}.png`} />
-      <a
-        href={`https://${
-          process.env.NEXT_PUBLIC_VERCEL_ENV === "production" ? "" : "testnets."
-        }opensea.io/assets/${contract.address}/${tokenId}`}
-        target="_blank"
-        rel="noreferrer"
-      >
-        View on opensea
-      </a>
+      <img
+        src={`https://gateway.pinata.cloud/ipfs/${NEXT_PUBLIC_IPFS_CID}/${tokenId}`}
+      />
     </>
   );
 };

@@ -11,6 +11,7 @@ import { useTokenId } from "../hooks/useTokenId";
 import Minting from "../components/Minting";
 import Minted from "../components/Minted";
 import Title from "../components/Title";
+import Avatar from "../components/Avatar";
 
 const Home: NextPage = () => {
   const contract = useContract(
@@ -39,7 +40,6 @@ const Home: NextPage = () => {
       <Suspense fallback={<Minting />}>
         <div>
           <Title />
-          <h2>{`#${tokenId}`}</h2>
           <Minted contract={contract} tokenId={tokenId} transaction={data} />
         </div>
       </Suspense>
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
     <div>
       <Title />
       <h2>{tokenId}/1000</h2>
-      <p>The next tokenId is probably {tokenId}.</p>
+      <Avatar tokenId={tokenId} />
       <button onClick={handleReload} disabled={loading}>
         Reload
       </button>

@@ -24,7 +24,16 @@ const Minted = ({
   return (
     <>
       <h2>Minted !!!</h2>
-      <Avatar contract={contract} tokenId={tokenId} />
+      <Avatar tokenId={tokenId} />
+      <a
+        href={`https://${
+          process.env.NEXT_PUBLIC_VERCEL_ENV === "production" ? "" : "testnets."
+        }opensea.io/assets/${contract.address}/${tokenId}`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        View on opensea
+      </a>
     </>
   );
 };

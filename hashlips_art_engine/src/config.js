@@ -7,8 +7,7 @@ const network = NETWORK.eth;
 // General metadata for Ethereum
 const namePrefix = "Vhigh! Avatar Gen 0.0";
 const description = "Remember to replace this description"; // FIXME: update
-const baseUri =
-  "ipfs://bafybeiaqdv5mduzgrnsrqghcxkrbmshgl4oaiizikczidij5aqwpizhxg4"; // FIXME: update
+const baseUri = "ipfs://QmW1QrSgJtm53wV26CbNKuvX9JVufKNRvpx2knyMVFwiiY"; // FIXME: update
 
 const solanaMetadata = {
   symbol: "YC",
@@ -26,7 +25,7 @@ const solanaMetadata = {
 // FIXME: update
 const layerConfigurations = [
   {
-    growEditionSizeTo: 4,
+    growEditionSizeTo: 10,
     layersOrder: [
       {
         name: "background",
@@ -35,6 +34,7 @@ const layerConfigurations = [
         },
       },
       { name: "backhair" },
+      { name: "body" },
       { name: "face" },
       { name: "bangs" },
       { name: "mouth" },
