@@ -1,30 +1,62 @@
 import type { NextPage } from "next";
-import { useState } from "react";
-import Web3Modal from "web3modal";
-import { ethers } from "ethers";
+import { Suspense } from "react";
+import { NEXT_PUBLIC_VHIGH_AVATAR_GEN_0_CONTRACT_ADDRESS } from "../const";
+import {
+  ERC721_ABI,
+  useContract,
+  useTokenBalance,
+  useWriteContract,
+} from "ethereal-react";
+import { useTokenId } from "../hooks/useTokenId";
+import Minting from "../components/Minting";
+import Minted from "../components/Minted";
+import Title from "../components/Title";
 
 const Home: NextPage = () => {
-  const [nextTokenId, setNextTokenId] = useState(-1);
+  const contract = useContract(
+    NEXT_PUBLIC_VHIGH_AVATAR_GEN_0_CONTRACT_ADDRESS,
+    [...ERC721_ABI, "function mint()"]
+  );
+  const tokenId = useTokenId(contract);
+  const balance = useTokenBalance(contract);
+  const [mint, { loading, data }] = useWriteContract(contract, "mint");
 
-  const connect = async () => {
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
-    const signerAddress = await signer.getAddress();
-  };
+  const handleReload = () => window.location.reload();
 
-  const handleReload = async () => {};
+  const handleMint = () => mint();
 
-  const handleMint = async () => {};
+  if (balance.toNumber() !== 0) {
+    return (
+      <div>
+        <Title />
+        <h2>Minted already !!!</h2>
+      </div>
+    );
+  }
+
+  if (data) {
+    return (
+      <Suspense fallback={<Minting />}>
+        <div>
+          <Title />
+          <h2>{`#${tokenId}`}</h2>
+          <Minted contract={contract} tokenId={tokenId} transaction={data} />
+        </div>
+      </Suspense>
+    );
+  }
 
   return (
     <div>
-      <h1>Vhigh! Avatar Gen 0.0</h1>
-      <h2>{nextTokenId === -1 ? "?" : nextTokenId}/1000</h2>
-      <button onClick={handleReload}>Reload</button>
-      <button onClick={handleMint}>Mint NFT</button>
-      {nextTokenId !== -1 && <p>The next tokenId is probably {nextTokenId}.</p>}
+      <Title />
+      <h2>{tokenId}/1000</h2>
+      <p>The next tokenId is probably {tokenId}.</p>
+      <button onClick={handleReload} disabled={loading}>
+        Reload
+      </button>
+      <button onClick={handleMint} disabled={loading}>
+        Mint NFT #{tokenId}
+      </button>
     </div>
   );
 };
