@@ -5,6 +5,7 @@ import {
 } from "ethereal-react";
 import { useEffect } from "react";
 import Avatar from "./Avatar";
+import UnderlinedLink from "./UnderlinedLink";
 
 const Minted = ({
   transaction,
@@ -23,17 +24,21 @@ const Minted = ({
 
   return (
     <>
-      <h2>Minted !!!</h2>
-      <Avatar tokenId={tokenId} />
-      <a
-        href={`https://${
-          process.env.NEXT_PUBLIC_VERCEL_ENV === "production" ? "" : "testnets."
-        }opensea.io/assets/${contract.address}/${tokenId}`}
-        target="_blank"
-        rel="noreferrer"
-      >
-        View on opensea
-      </a>
+      <div className="mb-8">
+        <Avatar tokenId={tokenId} />
+      </div>
+
+      <div className="text-center mb-28">
+        <UnderlinedLink
+          href={`https://${
+            process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
+              ? ""
+              : "testnets."
+          }opensea.io/assets/${contract.address}/${tokenId}`}
+        >
+          View in OpenSea
+        </UnderlinedLink>
+      </div>
     </>
   );
 };

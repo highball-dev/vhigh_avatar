@@ -12,6 +12,10 @@ import Minting from "../components/Minting";
 import Minted from "../components/Minted";
 import Title from "../components/Title";
 import Avatar from "../components/Avatar";
+import Container from "../components/Container";
+import Button from "../components/Button";
+import UnderlinedLink from "../components/UnderlinedLink";
+import Footer from "../components/Footer";
 
 const Home: NextPage = () => {
   const contract = useContract(
@@ -28,36 +32,69 @@ const Home: NextPage = () => {
 
   if (balance.toNumber() !== 0) {
     return (
-      <div>
+      <Container>
         <Title />
-        <h2>Minted already !!!</h2>
-      </div>
+
+        <p className="text-center font-bold text-4xl mb-10">
+          Minted already !!!
+        </p>
+
+        <div className="text-center mb-10">
+          <UnderlinedLink href="FIXME:">See the list of NFTs</UnderlinedLink>
+        </div>
+
+        <Footer />
+      </Container>
     );
   }
 
   if (data) {
     return (
       <Suspense fallback={<Minting />}>
-        <div>
-          <Title />
+        <Container>
+          <h1 className="text-4xl font-bold text-center mb-10">
+            Mint Completed!
+          </h1>
           <Minted contract={contract} tokenId={tokenId} transaction={data} />
-        </div>
+
+          <Footer />
+        </Container>
       </Suspense>
     );
   }
 
   return (
-    <div>
+    <Container>
       <Title />
-      <h2>{tokenId}/1000</h2>
-      <Avatar tokenId={tokenId} />
-      <button onClick={handleReload} disabled={loading}>
-        Reload
-      </button>
-      <button onClick={handleMint} disabled={loading}>
-        Mint NFT #{tokenId}
-      </button>
-    </div>
+
+      <p className="text-center font-bold mb-4">
+        Displayed image may not always be minted.
+        <br />
+        Please reload and update to the latest image.
+      </p>
+
+      <div className="mb-8">
+        <Avatar tokenId={tokenId} />
+        <p className="text-center text-gray-700 text-xl">{`${tokenId}/1000`}</p>
+      </div>
+
+      <div className="flex flex-col items-center mb-10 sm:flex-row justify-center">
+        <div className="mb-2 sm:mb-0 sm:mr-4">
+          <Button onClick={handleReload} disabled={loading} color="blue">
+            RELOAD
+          </Button>
+        </div>
+        <Button onClick={handleMint} disabled={loading} color="pink">
+          MINT
+        </Button>
+      </div>
+
+      <div className="text-center mb-10">
+        <UnderlinedLink href="FIXME:">See the list of NFTs</UnderlinedLink>
+      </div>
+
+      <Footer />
+    </Container>
   );
 };
 

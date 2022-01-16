@@ -5,11 +5,8 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          {/* FIXME: set favicon */}
           <link rel="icon" href="/favicon.ico" />
-          <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css"
-          ></link>
         </Head>
         <body>
           <Main />

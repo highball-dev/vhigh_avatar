@@ -1,11 +1,12 @@
+import Container from "./Container";
 import Title from "./Title";
 
 const Minting = () => {
   return (
-    <div>
+    <Container>
       <Title />
-      <h2>Minting...</h2>
-    </div>
+      <p className="text-center font-bold">Minting...</p>
+    </Container>
   );
 };
 

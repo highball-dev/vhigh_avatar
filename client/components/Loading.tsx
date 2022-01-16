@@ -1,11 +1,12 @@
+import Container from "./Container";
 import Title from "./Title";
 
 const Loading = () => {
   return (
-    <div>
+    <Container>
       <Title />
-      <h2>Loading...</h2>
-    </div>
+      <p className="text-center font-bold">Loading...</p>
+    </Container>
   );
 };
 

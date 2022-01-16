@@ -2,7 +2,7 @@ type Props = {
   children: string;
 };
 const ErrorMessage = ({ children }: Props) => {
-  return <p style={{ color: "red" }}>{children}</p>;
+  return <p className="text-[red] text-center break-words">{children}</p>;
 };
 
 export default ErrorMessage;
